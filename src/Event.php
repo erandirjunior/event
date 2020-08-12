@@ -4,20 +4,23 @@ namespace SRC;
 
 class Event
 {
-    private $firstPeriodTime;
+    private $durationMorning;
 
-    private $secondPeriodTime;
+    private $durationAfternoon;
 
-    private Trail $trail;
+    private /*Trail*/ $trail;
 
     private $inicialHourEvent;
 
-    public function __construct(int $firstDurationTrail, int $secondDurationTrail, string $inicialHourEvent)
+    private $event;
+
+    public function __construct(int $durationMorning, int $durationAfternoon, string $inicialHourEvent)
     {
-        $this->firstPeriodTime 	= $firstDurationTrail;
-        $this->secondPeriodTime = $secondDurationTrail;
-        $this->inicialHourEvent = $inicialHourEvent;
-        $this->trail            = new Trail();
+        $this->durationMorning 	    = $durationMorning;
+        $this->durationAfternoon    = $durationAfternoon;
+        $this->inicialHourEvent     = $inicialHourEvent;
+        $this->trail                = new Trail();
+        $this->event                = [];
     }
 
     public function addTalk(string $name, int $duration): void
@@ -30,28 +33,41 @@ class Event
         return new Talk($name, $duration);
     }
 
-    public function mountEvent()
+    public function mountEvent(): array
     {
         try {
-            $firstTrail     = $this->trail->getTrailMounted($this->firstPeriodTime);
             $lunchTalk      = [$this->createTalk('Lunch', 60)];
-            $secondTrail    = $this->trail->getTrailMounted($this->secondPeriodTime);
-            $networkTalk    = [$this->createTalk('Network Event', 60)];
+            $networkTalk    = [$this->createTalk('Networking Event', 0)];
 
-            $this->showTalkEvent(array_merge($firstTrail, $lunchTalk, $secondTrail, $networkTalk));
+            $this->createTrail('Track 1', $lunchTalk, $networkTalk);
+            $this->createTrail('Track 2', $lunchTalk, $networkTalk);
+
+            return $this->event;
         } catch (\Exception $e) {
             echo "The event couldn't be mounted";
         }
     }
 
-    private function showTalkEvent(array $event)
+    private function createTrail($track, $lunchTime, $networkTime)
     {
-        $hour = date("h:i A", strtotime("{$this->inicialHourEvent} UTC"));
+        $firstTrail     = $this->trail->getTrailMounted($this->durationMorning);
+        $secondTrail    = $this->trail->getTrailMounted($this->durationAfternoon);
+
+        $this->mountTrailTalkEvent($track, array_merge($firstTrail, $lunchTime, $secondTrail, $networkTime));
+    }
+
+    private function mountTrailTalkEvent($track, array $event)
+    {
+        $hour = date("h:iA", strtotime("{$this->inicialHourEvent} UTC"));
 
         foreach ($event as $talk) {
-            $currentHour = $hour;
-            echo "{$currentHour} {$talk->getName()} {$talk->getDuration()}min <br>";
-            $hour = date("h:i A", $this->addTime($talk->getDuration(), $hour));
+            $this->event[$track][] = [
+                'talkName' => $talk->getName(),
+                'talkDuration' => $talk->getDuration(),
+                'talkInitialHour' => $hour,
+            ];
+
+            $hour = date("h:iA", $this->addTime($talk->getDuration(), $hour));
         }
     }
 
