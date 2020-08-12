@@ -4,119 +4,59 @@ namespace SRC;
 
 class Event
 {
-    private $talks;
+    private $firstPeriodTime;
 
-    private $period;
+    private $secondPeriodTime;
 
-    private $time;
+    private Trail $trail;
 
-    private $trail;
+    private $inicialHourEvent;
 
-    private $numberOfElementsToRemove;
-
-    public function __construct()
+    public function __construct(int $firstDurationTrail, int $secondDurationTrail, string $inicialHourEvent)
     {
-        $this->talks    = [];
-        $this->period   = 0;
-        $this->time     = 0;
-        $this->trail    = 0;
-        $this->numberOfElementsToRemove = 1;
+        $this->firstPeriodTime 	= $firstDurationTrail;
+        $this->secondPeriodTime = $secondDurationTrail;
+        $this->inicialHourEvent = $inicialHourEvent;
+        $this->trail            = new Trail();
     }
 
-    public function add(Talk $talk)
+    public function addTalk(string $name, int $duration): void
     {
-        $this->talks[] = $talk;
+        $this->trail->add($this->createTalk($name, $duration));
     }
 
-    public function mountEvent($period): array
+    private function createTalk(string $name, int $duration): Talk
     {
-        $this->trail                    = [];
-        $this->period                   = 240;
-        $this->time                     = 0;
-        $this->period                   = $period;
-        $this->numberOfElementsToRemove = 1;
-        $this->proccess();
-
-        return $this->trail;
+        return new Talk($name, $duration);
     }
 
-    private function proccess()
+    public function mountEvent()
     {
-        while ($this->time < $this->period) {
-            foreach ($this->talks as $key => $value) {
-                if ($this->time === $this->period) {
-                    break;
-                }
+        try {
+            $firstTrail     = $this->trail->getTrailMounted($this->firstPeriodTime);
+            $lunchTalk      = [$this->createTalk('Lunch', 60)];
+            $secondTrail    = $this->trail->getTrailMounted($this->secondPeriodTime);
+            $networkTalk    = [$this->createTalk('Network Event', 60)];
 
-                if (($this->time + $value->getTime()) > $this->period) {
-                    continue;
-                }
-
-                $this->time     += $value->getTime();
-                $this->trail[]  = $value;
-
-                $this->removeElementByIndex($key);
-            }
-
-            $this->reorderTasksListIfTimeIsSmallerPeriod();
+            $this->showTalkEvent(array_merge($firstTrail, $lunchTalk, $secondTrail, $networkTalk));
+        } catch (\Exception $e) {
+            echo "The event couldn't be mounted";
         }
     }
 
-    private function removeElementByIndex($index)
+    private function showTalkEvent(array $event)
     {
-        $data = [];
+        $hour = date("h:i A", strtotime("{$this->inicialHourEvent} UTC"));
 
-        foreach ($this->talks as $key => $talk) {
-            if ($key !== $index) {
-                $data[] = $talk;
-            }
-        }
-
-        $this->talks = $data;
-    }
-
-    /**
-     * Reorder $this->talks and remove elements of $this->trail based on
-     * value $this->numberOfElementsToRemove.
-     *
-     * @see incrementNumberOfElementsToRemoveIfIsPossible()
-     * @see getLastValueTaskTrailAndAddInTalksList()
-     */
-    private function reorderTasksListIfTimeIsSmallerPeriod()
-    {
-        if ($this->time !== $this->period) {
-            for ($i = 0; $i < $this->numberOfElementsToRemove; $i++) {
-                if (!$this->trail) {
-                    $this->time = 0;
-                    break;
-                }
-
-                $this->incrementNumberOfElementsToRemoveIfIsPossible();
-
-                $this->getLastValueTaskTrailAndAddInTalksList();
-            }
+        foreach ($event as $talk) {
+            $currentHour = $hour;
+            echo "{$currentHour} {$talk->getName()} {$talk->getDuration()}min <br>";
+            $hour = date("h:i A", $this->addTime($talk->getDuration(), $hour));
         }
     }
 
-    /**
-     * Check if $this->numberOfElementsToRemove is smaller than number of elements in $this->trail
-     * If was smaller, then increment attributte $this->numberOfElementsToRemove.
-     */
-    private function incrementNumberOfElementsToRemoveIfIsPossible()
+    private function addTime($minutes, $hour)
     {
-        if ($this->numberOfElementsToRemove < count($this->trail)) {
-            $this->numberOfElementsToRemove++;
-        }
-    }
-
-    /**
-     * Remove last value in $this->trail, then add this value in the last $this->talks.
-     * Then subtract $this->time by value time removed from $this->trail.
-     */
-    private function getLastValueTaskTrailAndAddInTalksList()
-    {
-        $valor          = array_pop($this->trail);
-        $this->talks[]  = $valor;
-        $this->time     -= $valor->getTime();
+        return strtotime("+{$minutes} minutes",strtotime($hour));
     }
 }

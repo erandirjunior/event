@@ -6,17 +6,17 @@ class Talk
 {
     private string $name;
 
-    private int $time;
+    private int $duration;
 
     /**
      * Talk constructor.
      * @param string $name
      * @param int $time
      */
-    public function __construct(string $name, int $time)
+    public function __construct(string $name, int $duration)
     {
-        $this->name = $name;
-        $this->time = $time;
+        $this->name     = $name;
+        $this->duration = $duration;
     }
 
     /**
@@ -28,10 +28,10 @@ class Talk
     }
 
     /**
-     * @return mixed
+     * @return int|int
      */
-    public function getTime()
+    public function getDuration()
     {
-        return $this->time;
+        return $this->duration;
     }
 }
