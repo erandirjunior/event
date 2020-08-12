@@ -55,6 +55,10 @@ class Trail
                     $this->addTalkInTrailAndIncrementTime($talk);
                     $this->removeTalkOfTalkList($talk);
                 }
+
+                if ($this->time !== $this->period && count($this->talks) === 0) {
+                    throw new \Exception('Error to created trail!');
+                }
             }
 
             $this->reorderTasksListIfTimeIsSmallerThanPeriod();
