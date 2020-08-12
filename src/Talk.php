@@ -4,9 +4,9 @@ namespace SRC;
 
 class Talk
 {
-    private string $name;
+    private /*string*/ $name;
 
-    private int $duration;
+    private /*int*/ $duration;
 
     /**
      * Talk constructor.
@@ -15,8 +15,19 @@ class Talk
      */
     public function __construct(string $name, int $duration)
     {
-        $this->name     = $name;
+        $this->setName($name);
         $this->duration = $duration;
+    }
+
+    private function setName($name)
+    {
+        preg_match('/(\d+)/m', $name, $match);
+
+        if ($match) {
+            throw new \Exception("The title of the talk cannot contain numbers");
+        }
+
+        $this->name = $name;
     }
 
     /**
