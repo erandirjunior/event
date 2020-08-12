@@ -1,9 +1,6 @@
 <?php
 
 require 'vendor/autoload.php';
-//date_default_timezone_set('America/Fortaleza');
-
-
 
 use SRC\Talk;
 use SRC\Event;
@@ -88,17 +85,30 @@ $data = [
     ]
 ];
 
-$event = new Event();
+$continue = 'y';
+$command = new \SRC\Command();
+$event = new Event(180, 240, '09:00');
+
+/*while (strtolower($continue) === 'y') {
+    $title      = $command->doQuestion('Talk name: ');
+    $duration   = $command->doQuestion('Talk duration (min): ');
+
+    $event->addTalk($title, $duration);
+
+    $continue = $command->doQuestion('Would you like add other talk? (y/n) ');
+}*/
+
+
 
 foreach ($data as $value) {
-    $talk = new Talk($value[0], $value[1]);
-
-    $event->add($talk);
+    $event->addTalk($value[0], $value[1]);
 }
 
-$trail = new Trail(180, 240, 9);
+$event->mountEvent();
+
+/*$trail = new Trail(180, 240, 9);
 
 $lunch = new Talk('Lunch', 60);
 $netWork = new Talk('Network Event', 60);
 
-$trail->mountTrail($event, $lunch, $netWork);
+$trail->mountTrail($event, $lunch, $netWork);*/
