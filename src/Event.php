@@ -8,7 +8,7 @@ class Event
 
     private $durationAfternoon;
 
-    private /*Trail*/ $trail;
+    private Trail $trail;
 
     private $inicialHourEvent;
 
