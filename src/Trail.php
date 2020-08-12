@@ -53,8 +53,7 @@ class Trail
 
                 if ($this->checkIfCanAddTimeDuration($talk->getDuration())) {
                     $this->addTalkInTrailAndIncrementTime($talk);
-
-                    $this->removeElementByIndex($key);
+                    $this->removeTalkOfTalkList($talk);
                 }
             }
 
@@ -64,15 +63,15 @@ class Trail
 
     private function checkIfCanAddTimeDuration($currentTime)
     {
-        return ($this->time + $currentTime) < $this->period;
+        return ($this->time + $currentTime) <= $this->period;
     }
 
-    private function removeElementByIndex($index)
+    private function removeTalkOfTalkList($currentTalk)
     {
         $data = [];
 
-        foreach ($this->talks as $key => $talk) {
-            if ($key !== $index) {
+        foreach ($this->talks as $talk) {
+            if ($talk->getName() !== $currentTalk->getName()) {
                 $data[] = $talk;
             }
         }
@@ -109,7 +108,7 @@ class Trail
      */
     private function incrementNumberOfElementsToRemoveIfIsPossible()
     {
-        if ($this->numberOfElementsToRemove < count($this->trail)) {
+        if ($this->numberOfElementsToRemove < (count($this->trail) - 1)) {
             $this->numberOfElementsToRemove++;
         }
     }
@@ -127,7 +126,7 @@ class Trail
 
     private function addTalkInTrailAndIncrementTime(Talk $talk)
     {
-        $this->time += $talk->getDuration();
-        $this->trail[] = $talk;
+        $this->time     += $talk->getDuration();
+        $this->trail[]  = $talk;
     }
 }
