@@ -104,114 +104,114 @@ class EventTest extends TestCase
             [
                 'talkName' => 'Overdoing it in Python',
                 'talkDuration' => 45,
-                'talkInitialHour' => '09:00 AM'
+                'talkInitialHour' => '09:00AM'
             ],
             [
                 'talkName' => 'Ruby on Rails: Why We Should Move On',
                 'talkDuration' => 60,
-                'talkInitialHour' => '09:45 AM'
+                'talkInitialHour' => '09:45AM'
             ],
             [
                 'talkName' => 'Ruby Errors from Mismatched Gem Versions',
                 'talkDuration' => 45,
-                'talkInitialHour' =>  '10:45 AM'
+                'talkInitialHour' =>  '10:45AM'
             ],
             [
                 'talkName' => 'Woah',
                 'talkDuration' => 30,
-                'talkInitialHour' => '11:30 AM'
+                'talkInitialHour' => '11:30AM'
             ],
             [
                 'talkName' => 'Lunch',
                 'talkDuration' => 60,
-                'talkInitialHour' => '12:00 PM'
+                'talkInitialHour' => '12:00PM'
             ],
             [
                 'talkName' => 'Communicating Over Distance',
                 'talkDuration' => 60,
-                'talkInitialHour' => '01:00 PM'
+                'talkInitialHour' => '01:00PM'
             ],
             [
                 'talkName' => 'Writing Fast Tests Against Enterprise Rails',
                 'talkDuration' => 60,
-                'talkInitialHour' => '02:00 PM'
+                'talkInitialHour' => '02:00PM'
             ],
             [
                 'talkName' => 'Pair Programming vs Noise',
                 'talkDuration' => 45,
-                'talkInitialHour' => '03:00 PM'
+                'talkInitialHour' => '03:00PM'
             ],
             [
                 'talkName' => 'Clojure Ate Scala (on my project)',
                 'talkDuration' => 45,
-                'talkInitialHour' => '03:45 PM'
+                'talkInitialHour' => '03:45PM'
             ],
             [
                 'talkName' => 'Lua for the Masses',
                 'talkDuration' => 30,
-                'talkInitialHour' => '04:30 PM'
+                'talkInitialHour' => '04:30PM'
             ],
             [
                 'talkName' => 'Networking Event',
                 'talkDuration' => 0,
-                'talkInitialHour' => '05:00 PM'
+                'talkInitialHour' => '05:00PM'
             ],
         ];
         $trackTwo = [
             [
                 'talkName' => 'Common Ruby Errors',
                 'talkDuration' => 45,
-                'talkInitialHour' => '09:00 AM'
+                'talkInitialHour' => '09:00AM'
             ],
             [
                 'talkName' => 'Sit Down and Write',
                 'talkDuration' => 30,
-                'talkInitialHour' => '09:45 AM'
+                'talkInitialHour' => '09:45AM'
             ],
             [
                 'talkName' => 'Ruby on Rails Legacy App Maintenance',
                 'talkDuration' => 60,
-                'talkInitialHour' => '10:15 AM'
+                'talkInitialHour' => '10:15AM'
             ],
             [
                 'talkName' => 'Accounting-Driven Development',
                 'talkDuration' => 45,
-                'talkInitialHour' => '11:15 AM'
+                'talkInitialHour' => '11:15AM'
             ],
             [
                 'talkName' => 'Lunch',
                 'talkDuration' => 60,
-                'talkInitialHour' => '12:00 PM'
+                'talkInitialHour' => '12:00PM'
             ],
             [
                 'talkName' => 'A World Without HackerNews',
                 'talkDuration' => 60,
-                'talkInitialHour' => '01:00 PM'
+                'talkInitialHour' => '01:00PM'
             ],
             [
                 'talkName' => 'Rails Magic',
                 'talkDuration' => 60,
-                'talkInitialHour' => '02:00 PM'
+                'talkInitialHour' => '02:00PM'
             ],
             [
                 'talkName' => 'Rails for Python Developers lightning',
                 'talkDuration' => 60,
-                'talkInitialHour' => '03:00 PM'
+                'talkInitialHour' => '03:00PM'
             ],
             [
                 'talkName' => 'User Interface CSS in Rails Apps',
                 'talkDuration' => 30,
-                'talkInitialHour' => '04:00 PM'
+                'talkInitialHour' => '04:00PM'
             ],
             [
                 'talkName' => 'Ruby vs. Clojure for Back-End Development',
                 'talkDuration' => 30,
-                'talkInitialHour' => '04:30 PM'
+                'talkInitialHour' => '04:30PM'
             ],
             [
                 'talkName' => 'Networking Event',
                 'talkDuration' => 0,
-                'talkInitialHour' => '05:00 PM'
+                'talkInitialHour' => '05:00PM'
             ],
         ];
 
