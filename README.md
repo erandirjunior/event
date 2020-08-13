@@ -38,9 +38,14 @@ php index.php
 ```
 <img src="img/run_app.png"/>
 
-#### Run test
+#### Or run the code below to automatically add and show result
+```
+php automatically.php 
+```
+<img src="img/run_automatically.png"/>
+
+## Run test
 ```
 vendor/bin/phpunit tests/
 ```
-
 <img src="img/run_test.png"/>
