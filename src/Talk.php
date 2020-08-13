@@ -6,17 +6,28 @@ class Talk
 {
     private string $name;
 
-    private int $time;
+    private int $duration;
 
     /**
      * Talk constructor.
      * @param string $name
-     * @param int $time
+     * @param int $duration
      */
-    public function __construct(string $name, int $time)
+    public function __construct(string $name, int $duration)
     {
+        $this->setName($name);
+        $this->duration = $duration;
+    }
+
+    private function setName(string $name)
+    {
+        preg_match('/(\d+)/m', $name, $match);
+
+        if ($match) {
+            throw new \Exception("The title of the talk cannot contain numbers!");
+        }
+
         $this->name = $name;
-        $this->time = $time;
     }
 
     /**
@@ -28,10 +39,10 @@ class Talk
     }
 
     /**
-     * @return mixed
+     * @return int|int
      */
-    public function getTime()
+    public function getDuration()
     {
-        return $this->time;
+        return $this->duration;
     }
 }
